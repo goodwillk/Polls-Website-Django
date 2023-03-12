@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Registration Page</title>
+    <style>
+        table, th, td {
+          border:1px solid black;
+          border-radius : 4px
+        }
+        th{
+            background-color: #787878
+        }
+        td{
+            text-align: center;
+            background-color: #BEBEBE
+        }
+    </style>
+</head>
+<body>
+    <p>Give Details of the book you want To Register</p>
+
+    <form method = "post">
+        {% csrf_token %}
+        {{register_book.as_p}}
+        <input type="submit" value="Submit">
+    </form>
+
+        <table style="width:70%; margin:25px 25px">
+            <tr>
+                <th>Book ID</th>
+                <th>Book Name</th>
+                <th>Author Name</th>
+                <th>Price</th>
+                <th>Published Date</th>
+                <th>Copies Sold</th>
+            </tr>
+            {% for data in data_set %}
+                <tr>
+                    <td>{{data.id}}</td>
+                    <td>{{data.book_title}}</td>
+                    <td>{{data.author.first_name}} {{data.author.last_name}}</td>
+                    <td>{{data.price}}</td>
+                    <td>{{data.published_date}}</td>
+                    <td>{{data.copy_sold}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    
+    <a href={% url 'account:log_out' %} >
+        <button type="button">Click Me to logout!</button>
+    </a>
+</body>
+</html>
